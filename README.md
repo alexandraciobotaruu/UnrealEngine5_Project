@@ -1,60 +1,75 @@
-# UnrealEngine5_Project
-DOCUMENTAȚIE
+# UnrealEngine5_Project - Joc de Acțiune-Aventură RPG
 
-Nume Materie: Dezvoltare de jocuri 3D
+## Descriere Generală
 
-Descriere
+Acest proiect reprezintă un joc de acțiune-aventură cu elemente RPG, dezvoltat în **Unreal Engine 5.3 (actualizat la 5.4)**. Jucătorul pornește într-un templu antic, având ca scop găsirea unei ieșiri printr-un sistem complex de temnițe (dungeon).
 
-   In starea actuala, jocul are implementat doua nivele, acțiunile pe care
-caracterul principal le poate face și anume: WA/S/D mișcarea, Space pentru Jump, SHIFT pentru Sprint, P pentru Meniul de Pauza, tasta 2 pentru a intrat în modul de lupta (apăsarea din nou a tastei 2 pentru a ieși), tasta 1 pentru a intra în modul pasiv, Click stanga pentru a ataca, Click Dreapta pentru a block un atac.
-   Landscape-ul a fost creat prin modul de Modeling din Unreal. În acesta putem găsi următoarele camera:
-camera in care jucatorul porneste (se afla o usa sugestiva ca acolo a ramas blocat in templu)
-antecamera principala (unde se afla și primul Checkpoint de tip Actor BP)
-camera principala a primul nivel (unde se afla o fantana, coloane, un mormant) si din aceasta poti avea 2 variante de drumuri
-camera sicrielor, unde sunt cateva sicrie ale gărzii personale a persoanei anonime din mormant
-o camera mica de legatura 
-camera unde se afla primul inamic
-camera finală care face transpunerea între nivelul 1 și nivelul 2 (înainte de a intra în subnivelul 2 prin intrarea in coliziune cu un Box pentru a incarca nivelul, exista deasemenea aici un Checkpoint pentru a mai salva o data înainte de a intra în nivel)
-   In momentul actual, jocul porneste dintr-un templu si are ca scop găsirea ieșirii din acest templu printr-un dungeon.
-   Nivelul 1. Cum apasam PLAY GAME din Main Menu în fata se afla primele camera din joc și Checkpointul. După aceste camere jucătorul va trebui sa îsi gaseasca drumul prin templu ca sa ajungă în dungeon. În dungeon înainte de prima camera, este marcată de o luptă cu un inamic, acesta inițial se deplaseaza pe un spline, dacă este întrerupt (de un atac al playerului) acesta se va opri din patrulare (passive mode) și va începe sa atace instigatorul (intra în combat mode). De asemenea el se mai poate opri din patrula dacă îl ataci pana sa te vadă el. Dacă treci de acesta vei putea sa mergi mai departe. În caz contrar dacă el reușește sa te omoare va apărea un widget (Death Screen) care te întreabă dacă vrei sa reiei de la ultimul Checkpoint sau dacă vrei sa te duci înapoi în meniul principal. Daca il omori in schimb, ajungi inauntrul dungeonului, ai un ultim Checkpoint de salvare și se va încărca Nivelul 2.
-   Nivelul 2. În acest subnivel, playerul se afla în adancul templului, mai exact în dungeon. El va vedea în fata o camera principala cu coloane și în capătul acesteia o usa mare, în dreapta o camera de depozitare, si-n stanga o biblioteca. În biblioteca exista un raft special care dacă playerul îl găsește va putea parcurge mai departe în dungeon. După găsirea raftului se va deschide un pasaj secret și playerul ajunge la cea de a doua lupta care dacă o va castiga (momentan) termina jocul. (zic momentan că acolo trebuia sa fie un obiect care după ce se termina lupta il colecat si putea sa deschidă o ușă ca să continue drumul spre ieșire).
+Jocul se desfășoară în modul **single-player** și pune accent pe explorare, rezolvarea unor mici puzzle-uri și lupte tactice.
 
+## Starea Actuală a Jocului
 
+### Niveluri Implementate
 
-Specificatii tehnice
+Jocul include în prezent două niveluri distincte:
 
-   Sistemul de operare pe care va putea fi jucat este PC, nu necesita pachete adiționale, momentan este gandit doar ca SinglePlayer, deci fără conexiune la rețea și este făcut în UE 5.3 (updatat la 5.4).
-   Categoriile jocului: RPG, Acțiune, Aventura, Puzzle.
-   Taguri: RPG, Story, Adventure, Single Player, Third Person, Puzzle, Medieval, Action.
+* **Nivelul 1 (Templul Exterior):** Jucătorul începe într-o antecameră a templului, cu un prim Checkpoint. Acesta trebuie să-și croiască drum prin diverse camere tematice (fântâni, coloane, morminte, camera sicrielor) pentru a ajunge la intrarea în dungeon. Prima confruntare cu un inamic are loc înainte de intrarea propriu-zisă în dungeon, marcând o tranziție către o zonă mai periculoasă.
 
-Acțiuni Disponibile: - WASD > move
-- L SHIFT > Sprint
-- P > Meniu Pauza
-- 1 intrare în Passive Mode
-- 2 intrare în Combat Mode
-- Left Click > Atac
-- Right Click > Block
+* **Nivelul 2 (Dungeon):** Odată ajuns în adâncul templului, jucătorul explorează o cameră principală, o cameră de depozitare și o bibliotecă. Găsirea unui raft special în bibliotecă deschide un pasaj secret către a doua și ultima confruntare cu un inamic. Victoria în această luptă marchează (momentan) finalul jocului.
 
-   Dispozitive: Mouse + Tastatura
-   Clasele proprii folosite: Am folosit clase blueprint de tip Actor , Pawn, Characters, Actor Components.
+### Mecanici de Joc și Caracteristici
 
-   Actori:
-- Actorul Weapon+ai sai copii (childs)/BP_Projectile_parent + ai sai copii
-- Actorul Checkpoint (care ne salveaza progresul și în caz ca murim ne întoarce la ultimul Checkpoint);
-- Actorul BP_LoadUnloadLevel, care incarca subnivelul 2 cand intram în coliziune cu Box-ul sau
-- Actorul BP_BibliotecaAscunda, care are un box de coliziune pentru a afișa un text iar dacă facem ce ne zice textul se va deschide un pasaj secret;
-   Pioni:
-- Pionul BP_PawnCamera, care are rol de a ne prezenta un “background” mai special in meniul principal
-   Caractere:
--  Caracterul principal BP_Player, are toate funcțiile menționate la acțiuni, este
-singurul caracter care are implementate toate acțiunile posibile și singurul
-care va putea fi controlat de către jucător.
-- Caracterul inamic (BP_Enemy_Base) + BP_Enemy_Melee si BP_ENemey_Mage care sunt childs ai actorului parent BP_Enemy_Base
+* **Deplasare:**
+    * **WASD:** Mișcare (Înainte, Înapoi, Stânga, Dreapta)
+    * **Spațiu:** Săritură
+    * **SHIFT stânga:** Sprint
 
-Bibliografie:
-- Cursuri si laboratoare
-- https://docs.unrealengine.com/5.3/en-US/
-- YouTube 
+* **Combat:**
+    * **Click Stânga:** Atac
+    * **Click Dreapta:** Blocare
+    * **Tasta 1:** Intrare în Mod Pasiv (dezactivarea posturii de luptă)
+    * **Tasta 2:** Intrare în Mod de Luptă (activarea posturii de luptă)
 
+* **Alte Acțiuni:**
+    * **P:** Meniu de Pauză
 
- 
+* **Sistem de Checkpoint:** Checkpoint-urile (Actor BP) salvează progresul jucătorului. În cazul morții, un ecran dedicat (Death Screen) oferă opțiunea de a reîncărca de la ultimul Checkpoint sau de a reveni la meniul principal.
+
+* **Inamici:** Inamicii patrulează pe trasee predefinite (spline-uri). Dacă sunt atacați sau sesizează prezența jucătorului, trec din modul pasiv în modul de luptă și inițiază atacul.
+
+* **Design Nivel:** Landscape-ul și structura nivelurilor au fost create folosind modul de Modeling din Unreal Engine.
+
+## Specificatii Tehnice
+
+* **Platforma:** PC
+* **Mod de Joc:** Single-Player
+* **Motor Grafic:** Unreal Engine 5.3 (actualizat la 5.4)
+* **Genuri:** RPG, Acțiune, Aventură, Puzzle
+* **Tag-uri:** RPG, Story, Adventure, Single Player, Third Person, Puzzle, Medieval, Action
+* **Control:** Tastatură + Mouse
+* **Dependențe:** Nu necesită pachete adiționale.
+
+## Arhitectură Blueprints și Clase Proprii
+
+Am utilizat extensiv clase Blueprint de tip `Actor`, `Pawn`, `Character` și `Actor Component` pentru implementarea funcționalităților jocului.
+
+### Actori Notabili:
+
+* **`BP_Weapon` (și copiii săi):** Clasele de bază pentru armele din joc și proiectile (`BP_Projectile_parent`).
+* **`BP_Checkpoint`:** Gestionează salvarea progresului și punctul de respawn.
+* **`BP_LoadUnloadLevel`:** Actor care declanșează încărcarea subnivelului 2 la intrarea în coliziune.
+* **`BP_BibliotecaAscunsa`:** Include un box de coliziune care, la interacțiune, afișează un text sugestiv și deschide un pasaj secret odată ce condiția este îndeplinită.
+
+### Pioni:
+
+* **`BP_PawnCamera`:** Un pion utilizat pentru a oferi un "background" vizual dinamic în meniul principal.
+
+### Caractere:
+
+* **`BP_Player`:** Caracterul principal, controlat de jucător. Implementează toate acțiunile de mișcare, luptă și interacțiune.
+* **`BP_Enemy_Base` (și copiii săi: `BP_Enemy_Melee`, `BP_Enemy_Mage`):** Clasa de bază pentru toți inamicii din joc, cu implementări specifice pentru tipurile de inamici (melee, mage).
+
+## Bibliografie
+
+* Cursurile și laboratoarele specifice materiei "Dezvoltare de jocuri 3D".
+* Documentația oficială Unreal Engine: [https://docs.unrealengine.com/5.3/en-US/](https://docs.unrealengine.com/5.3/en-US/)
+* Resurse educaționale de pe YouTube.
